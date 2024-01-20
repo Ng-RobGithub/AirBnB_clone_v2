@@ -1,18 +1,12 @@
 #!/usr/bin/python3
-"""Defines unittests for models/review.py.
-
-Unittest classes:
-    TestReview_instantiation
-    TestReview_save
-    TestReview_to_dict
-"""
+"""Defines unittests for models/review.py."""
 
 import os
 import models
 import unittest
-from datetime import datetime, timedelta
 from time import sleep
 from models.review import Review
+from datetime import datetime
 
 
 class TestReviewInstantiation(unittest.TestCase):

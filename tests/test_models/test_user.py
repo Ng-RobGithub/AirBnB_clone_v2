@@ -13,12 +13,14 @@ from io import StringIO
 from console import HBNBCommand
 from models import storage
 from models.base_model import BaseModel
+"""
 from models.user import User
 from models.state import State
 from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
+"""
 
 
 class TestConsole(unittest.TestCase):
@@ -57,24 +59,29 @@ class TestConsole(unittest.TestCase):
         with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
             self.run_test(server="create BaseModel", cmd="create BaseModel")
             output = mock_stdout.getvalue().strip()
-            self.assertRegex(output, r"^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$")
+            self.assertRegex(output, r"^[0-9a-f]{8}-[0-9a-f]{4}-[1-5]"
+                             "[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$")
 
     def test_show(self):
         """Test show command."""
         with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
             obj = BaseModel()
             obj_id = obj.id
-            self.run_test(server="show BaseModel {}".format(obj_id), cmd="show BaseModel {}".format(obj_id))
+            self.run_test(server="show BaseModel {}".format(obj_id),
+                          cmd="show BaseModel {}".format(obj_id))
             output = mock_stdout.getvalue().strip()
             self.assertIn(obj_id, output)
 
     def test_destroy(self):
-        """Test destroy command."""
+        """Test destroy command.
         with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+        """
             obj = BaseModel()
             obj_id = obj.id
-            self.run_test(server="destroy BaseModel {}".format(obj_id), cmd="destroy BaseModel {}".format(obj_id))
-            self.assertFalse(hasattr(storage.all(), "BaseModel.{}".format(obj_id)))
+            self.run_test(server="destroy BaseModel {}".format(obj_id),
+                          cmd="destroy BaseModel {}".format(obj_id))
+            self.assertFalse(hasattr(storage.all(),
+                             "BaseModel.{}".format(obj_id)))
 
     def test_all(self):
         """Test all command."""
@@ -93,10 +100,12 @@ class TestConsole(unittest.TestCase):
 
     def test_update(self):
         """Test update command."""
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+      """with patch('sys.stdout', new_callable=StringIO) as mock_stdout:"""
             obj = BaseModel()
             obj_id = obj.id
-            self.run_test(server="update BaseModel {} name John".format(obj_id), cmd="update BaseModel {} name John".format(obj_id))
+            self.run_test(server="update BaseModel {} name John".format
+                          (obj_id), cmd="update BaseModel {} name John".format
+                          (obj_id))
             updated_obj = storage.all()["BaseModel.{}".format(obj_id)]
             self.assertEqual(updated_obj.name, "John")
 
