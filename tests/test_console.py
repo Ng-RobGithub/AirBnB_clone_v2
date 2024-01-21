@@ -394,7 +394,7 @@ class TestHBNBCommand_show(unittest.TestCase):
     def test_show_objects_space_notation(self):
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
             testID = output.getvalue().strip()
-        with patch("sys.stdout", new=StringIO()) as output:
+       with patch("sys.stdout", new=StringIO()) as output:
             bj = storage.all()["BaseModel.{}".format(testID)
             command = "BaseModel.show({})".format(testID)
             self.assertFalse(HBNBCommand().onecmd(command)

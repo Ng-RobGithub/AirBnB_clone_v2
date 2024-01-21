@@ -1,11 +1,5 @@
 #!/usr/bin/python3
-"""Defines unittests for models/user.py.
-
-Unittest classes:
-    TestUser_instantiation
-    TestUser_save
-    TestUser_to_dict
-"""
+"""Defines unittests for models/user.py."""
 
 import unittest
 from unittest.mock import patch
@@ -24,7 +18,6 @@ from models.review import Review
 
 
 class TestConsole(unittest.TestCase):
-
     def setUp(self):
         """Set up for test."""
         self.console_output = StringIO()
@@ -73,15 +66,14 @@ class TestConsole(unittest.TestCase):
             self.assertIn(obj_id, output)
 
     def test_destroy(self):
-        """Test destroy command.
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-        """
+        """Test destroy command."""
+        with patch('sys.stdout', new_callable=StringIO):
             obj = BaseModel()
             obj_id = obj.id
-            self.run_test(server="destroy BaseModel {}".format(obj_id),
-                          cmd="destroy BaseModel {}".format(obj_id))
-            self.assertFalse(hasattr(storage.all(),
-                             "BaseModel.{}".format(obj_id)))
+            server_command = "destroy BaseModel {}".format(obj_id)
+            self.run_test(server=server_command, cmd=server_command)
+            obj_key = "BaseModel.{}".format(obj_id)
+            self.assertFalse(hasattr(storage.all(), obj_key))
 
     def test_all(self):
         """Test all command."""
@@ -100,12 +92,11 @@ class TestConsole(unittest.TestCase):
 
     def test_update(self):
         """Test update command."""
-      """with patch('sys.stdout', new_callable=StringIO) as mock_stdout:"""
+        with patch('sys.stdout', new_callable=StringIO):
             obj = BaseModel()
             obj_id = obj.id
-            self.run_test(server="update BaseModel {} name John".format
-                          (obj_id), cmd="update BaseModel {} name John".format
-                          (obj_id))
+            server_command = "update BaseModel {} name John".format(obj_id)
+            self.run_test(server=server_command, cmd=server_command)
             updated_obj = storage.all()["BaseModel.{}".format(obj_id)]
             self.assertEqual(updated_obj.name, "John")
 
