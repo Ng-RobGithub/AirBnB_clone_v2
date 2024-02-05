@@ -1,39 +1,26 @@
 #!/usr/bin/python3
-"""Fabric script that generates a .tgz archive from the contents of the web_static folder"""
+"""
+Fabric script to generate a .tgz archive from the contents of the web_static folder
+Usage: fab -f 1-pack_web_static.py do_pack
+"""
 
-from fabric.api import local
 from datetime import datetime
+from fabric.api import *
 
 
 def do_pack():
-    """Creates a .tgz archive from the contents of the web_static folder"""
+    """
+    Compresses the contents of the web_static folder into a .tgz archive
+    Returns:
+    Path to the created archive if successful, None otherwise
+    """
+
     try:
-        # Get current date and time
-        now = datetime.now()
-
-        # Format the date and time as specified
-        date_time = now.strftime("%Y%m%d%H%M%S")
-
-        # Create the name of the archive
-        archive_name = "versions/web_static_" + date_time + ".tgz"
-
-        # Create the versions directory if it doesn't exist
-        local("mkdir -p versions")
-
-        # Create the .tgz archive
-        result = local("tar -cvzf {} web_static".format(archive_name))
-
-        # Check if the command was successful (exit code 0)
-        if result.return_code == 0:
-            print("Archive created successfully:", archive_name)
-            return archive_name
-        else:
-            raise Exception("Failed to create archive. Command returned non-zero exit code.")
-        except Exception as e:
-            print("Error:", str(e))
-            return None
-
-
-        if __name__ == "__main__":
-            # Execute do_pack function when script is run directly
-            do_pack()
+        current_time = datetime.now().strftime("%Y%m%d%H%M%S")
+        archive_name = 'web_static_{}.tgz'.format(current_time)
+        local('mkdir -p versions')
+        local('tar -cvzf versions/{} web_static'.format(archive_name))
+        return 'versions/{}'.format(archive_name)
+    except Exception as e:
+        print("Error:", e)
+        return None

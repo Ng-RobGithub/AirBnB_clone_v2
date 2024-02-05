@@ -1,49 +1,33 @@
 #!/usr/bin/python3
 """
-Fabric script that deletes out-of-date archives
+Fabric script to delete out-of-date archives
+Usage: fab -f 100-clean_web_static.py do_clean:number=2 -i ssh-key -u ubuntu > /dev/null 2>&1
 """
 
-from fabric.api import local, run, env
-from datetime import datetime
 import os
+from fabric.api import *
 
-# Define the list of web server IP addresses
-env.hosts = '54.167.152.167', '54.159.2.24'
-# Define the user to connect to the remote hosts
-env.user = 'ubuntu'
+# Define the list of hosts
+env.hosts = ['54.167.152.167', '54.159.2.24']
 
 
 def do_clean(number=0):
     """
-    Deletes out-of-date archives
+    Deletes out-of-date archives based on the specified number.
+    Args:
+    number (int): The number of archives to keep.
+    If number is 0 or 1, keeps only the most recent archive. If
+    number is 2, keeps the most and second-most recent archives,
+    etc.
     """
-    try:
-        number = int(number)
-        if number < 0:
-            number = 0
+    number = 1 if int(number) == 0 else int(number)
 
-        # Get a list of archives sorted by modification time
-        archives = sorted(os.listdir('versions'), reverse=True)
-        archives_to_keep = archives[:number]
+    # Delete local out-of-date archives
+    local_archives = sorted(os.listdir("versions"))
+    [local("rm ./versions/{}".format(a)) for a in local_archives[:-number]]
 
-        # Delete unnecessary archives in the versions folder
-        for archive in archives:
-            if archive not in archives_to_keep:
-                local("rm versions/{}".format(archive))
-
-        # Get a list of releases sorted by modification time
-        releases = run("ls -t /data/web_static/releases").split()
-        releases_to_keep = releases[:number]
-
-        # Delete unnecessary archives in the releases folder on each web server
-        for release in releases:
-            if release not in releases_to_keep:
-                run("rm -rf /data/web_static/releases/{}".format(release))
-
-        return True
-    except Exception as e:
-        return False
-
-
-if __name__ == "__main__":
-    do_clean()
+    # Delete remote out-of-date archives
+    with cd("/data/web_static/releases"):
+        remote_archives = run("ls -tr").split()
+        remote_archives = [a for a in remote_archives if "web_static_" in a]
+        [run("rm -rf ./{}".format(a)) for a in remote_archives[:-number]]
