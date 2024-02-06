@@ -16,10 +16,9 @@ sudo mkdir -p /data/web_static/shared/
 sudo touch /data/web_static/releases/test/index.html
 
 # Populate index.html with content
-sudo echo -e "<html>\n  <head>\n  </head>\n  <body>\n    Holberton School\n  </body>\n</html>" | sudo tee /data/web_static/releases/test/index.html
+sudo echo -e "<html>\n <head>\n </head>\n <body>\n   Holberton School\n </body>\n</html>" | sudo tee /data/web_static/releases/test/index.html
 
 # Create symbolic link
-sudo rm -f /data/web_static/current
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 # Give ownership to ubuntu user and group

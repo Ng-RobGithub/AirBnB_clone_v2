@@ -1,0 +1,38 @@
+.amenities,
+.reviews {
+margin-top: 40px;
+}
+
+.amenities h2,
+.reviews h2 {
+font-size: 16px;
+border-bottom: 1px solid #DDDDDD;
+}
+
+.amenities ul,
+.reviews ul {
+list-style: none;
+padding: 0;
+}
+
+.amenities ul li,
+.reviews ul li {
+display: flex;
+align-items: center;
+}
+
+.amenities ul li::before,
+.reviews ul li::before {
+content: '✔';
+margin-right: 10px;
+}
+
+section.places .amenities ul li::before {
+content: '✔';
+margin-right: 10px;
+}
+
+section.places .reviews ul li::before {
+content: '🗨';
+margin-right: 10px;
+}

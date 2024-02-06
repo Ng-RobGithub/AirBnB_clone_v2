@@ -15,12 +15,11 @@ def do_pack():
     Path to the created archive if successful, None otherwise
     """
 
-    try:
-        current_time = datetime.now().strftime("%Y%m%d%H%M%S")
-        archive_name = 'web_static_{}.tgz'.format(current_time)
-        local('mkdir -p versions')
-        local('tar -cvzf versions/{} web_static'.format(archive_name))
-        return 'versions/{}'.format(archive_name)
-    except Exception as e:
-        print("Error:", e)
+    time = datetime.now()
+    archive_name = 'web_static_' + time.strftime("%Y%m%d%H%M%S") + '.' + 'tgz'
+    local('mkdir -p versions')
+    create = local('tar -czvf versions/{} web_static'.format(archive_name))
+    if create.succeeded:
+        return 'versions/' + archive_name
+    else:
         return None

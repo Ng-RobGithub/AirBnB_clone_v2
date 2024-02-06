@@ -1,0 +1,60 @@
+.filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #EEE;
+    padding: 10px;
+}
+
+.locations,
+.amenities {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.locations h3,
+.amenities h3 {
+    font-size: 16px;
+    border-bottom: 1px solid #DDD;
+}
+
+.locations ul,
+.amenities ul {
+    list-style: none;
+    padding: 0;
+}
+
+.locations ul li,
+.amenities ul li {
+    margin: 5px 0;
+}
+
+.search-button {
+    background-color: #FF5A5F;
+    color: white;
+    font-size: 18px;
+    height: 40px;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* Add a media query for responsiveness */
+@media only screen and (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .locations,
+    .amenities {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .search-button {
+        width: 100%;
+    }
+}
