@@ -31,6 +31,3 @@ sudo sed -i '/listen 80 default_server/a \ \ location \/hbnb_static {\n\talias /
 
 # Restart Nginx
 sudo service nginx restart
-
-# Exit successfully
-exit 0
