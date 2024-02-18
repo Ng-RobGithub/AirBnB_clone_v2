@@ -1,0 +1,16 @@
+/* 3-footer.css */
+
+footer {
+	background-color: #F5F5F5;
+	text-align: center;
+	padding: 20px 0;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+
+footer h2 {
+	color: #333;
+	font-size: 16px;
+	margin: 0;
+}

@@ -1,0 +1,21 @@
+/* web_flask/static/styles/8-places.css */
+
+.place-price {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	padding: 5px;
+}
+
+.place-name {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	padding: 5px;
+	text-align: center;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<HTML lang="en">
+	<HEAD>
+		<TITLE>HBNB</TITLE>
+		<link rel="stylesheet" href="{{ url_for('static', filename='styles/3-header.css') }}" type="text/css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='styles/4-common.css') }}" type="text/css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='styles/3-footer.css') }}" type="text/css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='styles/6-filters.css') }}" type="text/css">
+	</HEAD>
+	<BODY>
+		<header class="row">
+			<div class="logo"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo"></div>
+			<div class="title">
+				<h1>HBNB</h1>
+				<h2>Places to stay</h2>
+			</div>
+			<div class="user">
+				<span class="user_name">Anonymous</span>
+				<img src="{{ url_for('static', filename='images/user.jpg') }}" alt="user">
+			</div>
+		</header>
+		<div class="row">
+			<div class="col-md-12 filters">
+				<h3>States</h3>
+				<div class="popover">
+					<br>
+					<br>
+					{% for state in states %}
+					<br>
+					<label class="checkbox">
+						<input type="checkbox" class="check" id="{{ state.id }}">{{ state.name }}
+					</label>
+					{% endfor %}
+				</div>
+				<br>
+				<h3>Amenities</h3>
+				<div class="popover">
+					<br>
+					<br>
+					{% for amenity in amenities %}
+					<br>
+					<label class="checkbox">
+						<input type="checkbox" class="check" id="{{ amenity.id }}">{{ amenity.name }}
+					</label>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Places</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<br>
+				<ODY>
+</HTML>
