@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """Defines the FileStorage class."""
 import json
-from models.engine import file_storage
+from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -55,14 +56,17 @@ def count(self, cls=None):
 
 
 def reload(self):
-    """Deserialize the JSON file __file_path to __objects, if it exists."""
+    """Deserializes the JSON file to __objects"""
     try:
-        with open(FileStorage.__file_path) as f:
-            objdict = json.load(f)
-            for key, value in objdict.items():
-                cls_name = value["__class__"]
-                file_storage.py = value["__class__"]
-                self.new(eval(cls_name)(**value))
+        with open(self.__file_path, 'r', encoding='utf-8') as file:
+            json_data = json.load(file)
+            for key, value in json_data.items():
+                key_split = key.split(".")
+                class_name = key_split[0]
+                models = {"BaseModel": BaseModel, "User": User}
+                class_obj = models.classes[class_name]
+                obj = class_obj(**value)
+                self.__objects[key] = obj
 
     except FileNotFoundError:
-        return
+        pass
